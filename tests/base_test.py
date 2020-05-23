@@ -9,10 +9,12 @@ class BaseTest(TestCase):
         self.setup_credentials()
 
     def setup_credentials(self):
-        with open('secret/credentials.json') as f:
-            credentials = json.load(f)
-        self.email = credentials['email']
-        self.password = credentials['password']
+        def read(key):
+            with open('secret/credentials.json') as f:
+                credentials = json.load(f)
+            return credentials[key]
+        self.email = lambda: read(['email'])
+        self.password = lambda: read(['password'])
 
     @staticmethod
     def random_letters(n):
