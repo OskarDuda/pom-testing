@@ -16,11 +16,12 @@ class HomePage(BasePage):
     def log_out(self):
         dropdown_button = self.get_login_anchor()
         self.click(dropdown_button)
-        log_out_xpath = "//span[@class='_54nh']"
-        log_out_button = self.find_elements(log_out_xpath)[-1]
+        log_out_xpath = "//div[@aria-label='Konto']//div[@role='button']"
+        log_out_button = self.wait_elements_visible(log_out_xpath)[-2]
         self.click(log_out_button)
 
     def get_login_anchor(self):
-        xpath = "//a[@id='pageLoginAnchor']"
+        # xpath = "//a[@id='pageLoginAnchor']"
+        xpath = "//div[@aria-label='Konto']"
         login_anchor = self.find(xpath)
         return login_anchor
